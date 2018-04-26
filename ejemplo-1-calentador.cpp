@@ -4,8 +4,11 @@ class Calentador
 private:
     int temperatura;
     int incremento;
+    int min;
+    int max;
 public:
-    Calentador(); //constructor
+    Calentador(int min, int max, int temperatura = 0); //constructor 
+                                                        // si en la temperatura no me dan un valor toma el valor de cero
     void calentar();
     void enfriar();
     void imprimeCentigrados();
@@ -14,19 +17,29 @@ public:
 };// es obligatorio al final de la clase
 
 //metodo constructor
-Calentador::Calentador()
+Calentador::Calentador( int min, int max, int temperatura)
 {
-    temperatura = 15;
+    if(min > max){
+        std::cout << "Error en el rango min-max" << std::endl;
+        std::exit(EXIT_FAILURE);
+        //throw "Error en el rango min-max";
+    }
+    if(temperatura >= min && temperatura <= max){
+        this ->temperatura = temperatura;
+    }
+    else
+    this->temperatura = min;
     incremento = 3;
+    this->min = min;
+    this->max = max;
 }
-
 void Calentador::calentar(){ // los dos puntos indican que el metodo es de la clase calentador
-    if(temperatura + incremento <= 30){
+    if(temperatura + incremento <= this->max){
         temperatura += incremento;
     }
 }
 void Calentador::enfriar(){ // los dos puntos indican que el metodo es de la clase calentador
-    if(temperatura - incremento >= -10){
+    if(temperatura - incremento >= this->min){
         temperatura -= incremento;
     }
 }
@@ -43,15 +56,19 @@ int Calentador::accedeTemperatura() const
 }
 int main()
 {
-    Calentador c1;
-    Calentador c2;
-    
-    c1.calentar();
-    c1.imprimeCentigrados();
-    c1.imprimeFarenheit();
-    
-    
-    c2.enfriar();
-    c2.imprimeCentigrados();
-    c2.imprimeFarenheit();
+   // try{
+        Calentador c1{-10,10};//los parametros van entre llaves
+        Calentador c2{30, 0, -10};
+        
+        c1.calentar();
+        c1.imprimeCentigrados();
+        c1.imprimeFarenheit();
+        
+        c2.enfriar();
+        c2.imprimeCentigrados();
+        c2.imprimeFarenheit();
+  //  }
+   // catch (const std::runtime_error &e){
+   // }
+  //  }
 }
