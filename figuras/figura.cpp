@@ -5,11 +5,13 @@ Figura::Figura()
 {
     area=0;
 }
+/*
 void Figura::calcularArea()
 {
-    std::cout<<"no se como calcular el area :(\n";
+    std::cout<<"No se como calcular el area :(\n";
 }
+*/
 void Figura::imprimeArea()
 {
-    std::cout<<"Area es "<<area<<"\n";
+    std::cout<<"El área es "<<area<<"\n";
 }
